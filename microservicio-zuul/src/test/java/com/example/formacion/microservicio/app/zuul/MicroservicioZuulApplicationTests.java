@@ -1,10 +1,10 @@
-package com.example.informativo.microserviceszuul;
+package com.example.formacion.microservicio.app.zuul;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MicroservicesZuulApplicationTests {
+class MicroservicioZuulApplicationTests {
 
 	@Test
 	void contextLoads() {

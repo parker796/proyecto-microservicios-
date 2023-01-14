@@ -41,9 +41,9 @@ public class StudentController {
             return ResponseEntity.notFound().build(); //404
         }
         Student studentDb = o.get();
-        studentDb.setName(studentDb.getName());
-        studentDb.setLastname(studentDb.getLastname());
-        studentDb.setEmail(studentDb.getEmail());
+        studentDb.setName(student.getName()); //este es el parametro que viene en la peticion put
+        studentDb.setLastname(student.getLastname());
+        studentDb.setEmail(student.getEmail());
         return ResponseEntity.status(HttpStatus.CREATED).body(studentservice.save(studentDb)); //tenemos que persistir los datos en BD
     }
     @DeleteMapping("/{id}")
