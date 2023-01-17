@@ -1,0 +1,68 @@
+el paquete de inicio de sesion de google esta obsoleta para la version SDK 46 de expo react native. por lo que usamos codigo nativo
+para esto usamos el metodo de compilacion de desarrollo para manejar el paquete de firebase
+entonces ya que tenemos nuestra aplicacion compilada en eas eas build --profile development --platform android con las especificaciones para el uso nativo en expo ya podemos comenzar con el repositorio de guthub que nos manda la pagina oficial de firebase en la autenticaciones sociales.
+ya que tenemos hecha esta parte pegamos en app.json el archivo plugin y los demas en el mismo repositorio dice
+ahora creamos el proyecto en firebase y sacamos el certificado de depuracion con el comando eas build elegimos uno nuevo y configuramos un nuevo almacen de claves porque el que esta por default se utiliza en el proyecto firebase agregando como certificado predeterminado una vez listo ya descargamos el archivo y lo agregamos al proyecto
+instalamos igual otro paquete nativo react-native-firebase-auth
+ahora recontruimos nuestra app
+cada vez que agreguemos cosas nativas que no acepte expo recompilamos el proyecto y ya queda
+
+existe navegacion por tabs, drawer y stack
+cuando agregamos las dependencias de navegacion no nos funcionaba porque teniamos que reconstruir todo el compilado de la app y asi fue como nos funciono ya no nos marco error en el rnsscren
+
+
+una recomendacion para firebase es utilizar expo install firebase para instalar la version compatible con expo en lugar de npm install
+token generado para acceso a github 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
+
+git pull --rebase nos sirve para cuando existen cambios en el repositorio nosotros lo bajemos de github hacia nuestra maquina local y ya podamos hacer cambios
+
+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
+
+squ_2d2bc060945d74548f730f48bf81eff83e26aae6 //este es de sonarqube para jenkins el token
+
+
+
+
+
+
+
+
+
+
+Pipeline
+Docker
+Docker Pipeline
+Environment Injector
+Git
+GitHub
+GitHub Authenticator 
+
+para crear un proyecto nuevo ponemos como comando 
+npx create-expo-app {nombre de la aplicacion}
+cd {nombre de la aplicacion}
+npm start
+para crear nuestra aplicacion como proyecto de compilacion apk con eas
+npm install -g eas-cli si no no los permite usamos sudo y si tampoco funciona
+ponemos y nos sale este error Error: EACCES: permission denied, rename '/usr/local/lib/node_modules/expo-cli'
+agregamos este comando
+sudo chown -R $USER /usr/local/lib/node_modules
+y ya intentamos otra vez como sudo
+# para correr generar la build, debemos destar loggeados a nuestra cuenta de expo, revisese en la documentación oficial de expo
+# generamos el apk
+eas build -p android --profile preview #aqui si elegimos preview etc nos genera el apk pero para fines de desarrollo el profile es de default
+# comenzará solicitando diversos pasos, dar yes a todo
+# al finalizar, nos dará una url que redirige al perfil de expo, ahí podremos descargar nuestro apk
+expo fetch:android:keystore nos sirve para ver nuestra keystore que generamos
+ya descargado el apk desde nuestro perfil de expo
+corremos en la terminal expo start --dev-client
+npx expo start --dev-client
+
+para sacar credenciale sha1 y las demas para registrar en firebase usamos este comando
+expo credentials:manager
+ya que agregamos las credenciales al firebase
+registramos nuestra app para las push token
+expo push:android:upload --api-key AAAAehkmMHA:APA91bFf8EIywj4PLwou70ZGo9XuTcdzNkQUtt1mfqVtlIBNPbtsSiStYb8JKFDXGNmGJh6zYDDj3tWOiqCNwzmQ13ah4F3nh48D3YlXdigu59xTl6_3UKWgInl2vW52SWumGTrqG-Tq
+por ultimo le damos los permisos que necesita para las notificaciones push
+npm i -S expo-permissions
+eas build --profile development --platform android
+https://docs.expo.dev/development/create-development-builds/
