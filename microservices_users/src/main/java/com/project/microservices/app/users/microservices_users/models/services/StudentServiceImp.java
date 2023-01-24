@@ -3,14 +3,24 @@ package com.project.microservices.app.users.microservices_users.models.services;
 import com.project.microservices.app.users.microservices_users.models.entity.Student;
 
 import com.project.microservices.app.users.microservices_users.models.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import services.CommonServiceGenericImp;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
+
+
 
 @Service
-public class StudentServiceImp implements StudentService{
+public class StudentServiceImp extends CommonServiceGenericImp<Student, StudentRepository>implements StudentService{
+
+	public StudentServiceImp(StudentRepository repository) {
+		super(repository);
+		// TODO Auto-generated constructor stub
+	}
+
+	
+   /*
     private StudentRepository studentrepository;
 
     @Autowired //la cereza del pastel DI por constructor mas seguridad
@@ -41,4 +51,6 @@ public class StudentServiceImp implements StudentService{
     public void deleteById(Long id) {
         studentrepository.deleteById(id);
     }
+    */
+
 }

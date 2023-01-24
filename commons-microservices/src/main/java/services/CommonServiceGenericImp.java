@@ -2,16 +2,16 @@ package services;
 
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-@Service
-public class StudentServiceImp<E, R extends CrudRepository<E,Long>> implements StudentService<E>{
-    private R repository;
-
+//buenas practicas para nuestros microservicios solo necesitamos heredarlas
+public class CommonServiceGenericImp<E, R extends CrudRepository<E,Long>> implements CommonServiceGeneric<E>{
+    //private R repository; //en lugar de private protected
+	protected R repository; //para que se reutilize en las clases hijas
     @Autowired //la cereza del pastel DI por constructor mas seguridad
-    public StudentServiceImp(R repository){
+    public CommonServiceGenericImp(R repository){
         this.repository = repository;
     }
 
