@@ -1,6 +1,6 @@
 package com.project.microservices.app.users.microservices_users.models.services;
 
-import com.project.microservices.app.users.microservices_users.models.entity.Student;
+import com.example.formacion.microservicio.common.students.models.entity.Student;
 
 import com.project.microservices.app.users.microservices_users.models.repository.StudentRepository;
 

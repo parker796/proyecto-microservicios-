@@ -1,12 +1,12 @@
 package com.project.microservices.app.users.microservices_users.models.controller;
 
-import com.project.microservices.app.users.microservices_users.models.entity.Student;
+import com.example.formacion.microservicio.common.students.models.entity.Student;
+
 
 import com.project.microservices.app.users.microservices_users.models.services.StudentService;
 
 import controllers.CommontControllerGeneric;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

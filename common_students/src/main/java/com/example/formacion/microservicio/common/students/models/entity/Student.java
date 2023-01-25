@@ -1,9 +1,18 @@
-package com.project.microservices.app.users.microservices_users.models.entity;
+package com.example.formacion.microservicio.common.students.models.entity;
 
 
 
-import javax.persistence.*;
 import java.util.Date;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name="student")
