@@ -74,4 +74,20 @@ public class Student {
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
     }
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj) {
+			return true; //se refiere a que la clase student son iguales al objeto que pasamos
+		}
+		
+		if(!(obj instanceof Student)) {
+			return false;
+		}
+		Student alum = (Student) obj;
+		
+		return this.id != null && this.id.equals(alum.getId()); //mismo objeto con el id
+		
+	}
+    
+    
 }
