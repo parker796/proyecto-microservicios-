@@ -3,6 +3,8 @@ package com.project.microservices.app.users.microservices_users.models.controlle
 import com.example.formacion.microservicio.common.students.models.entity.Student;
 
 
+//import com.project.microservices.app.users.microservices_users.models.entity.Student;
+
 import com.project.microservices.app.users.microservices_users.models.services.StudentService;
 
 import controllers.CommontControllerGeneric;
@@ -67,6 +69,10 @@ public class StudentController extends CommontControllerGeneric<Student, Student
         studentservice.deleteById(id);
         return (ResponseEntity<?>) ResponseEntity.noContent().build();//204
     }*/
+    @GetMapping("/filtrar/{buscar}")//igual el id entre corchetes debe considir con el argumento {}
+    public ResponseEntity<?> filtrarNameOrlastname(@PathVariable String buscar){
+    	return ResponseEntity.ok(sServiceGeneric.findByNombreAndApellido(buscar));
+    }
 
 
 }

@@ -1,13 +1,16 @@
 package com.project.microservices.app.users.microservices_users.models.services;
 
 import com.example.formacion.microservicio.common.students.models.entity.Student;
+//import com.project.microservices.app.users.microservices_users.models.entity.Student;
 
 import com.project.microservices.app.users.microservices_users.models.repository.StudentRepository;
 
 import services.CommonServiceGenericImp;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 
@@ -17,6 +20,13 @@ public class StudentServiceImp extends CommonServiceGenericImp<Student, StudentR
 	public StudentServiceImp(StudentRepository repository) {
 		super(repository);
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Student> findByNombreAndApellido(String buscar) {
+		// TODO Auto-generated method stub
+		return repository.findByNombreAndApellido(buscar);
 	}
 
 	
