@@ -5,12 +5,14 @@ package com.example.formacion.microservicio.app.cursos.entity;
 import java.util.ArrayList;
 
 
+
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 
 import com.example.formacion.microservicio.common.students.models.entity.Student;
+import com.example.formacion.microservicio.examenes.models.Examen;
 
 /*import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,11 +40,22 @@ public class Curso {
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<Student> Students;
 	
+	@ManyToMany(fetch = FetchType.LAZY)
+	private List<Examen> examenes = new ArrayList<>();
 	
 	
 	public Curso() {
 		//aqui en el constructor inicializamos la lista de alumnos para ir agregando uno a uno
 		this.Students = new ArrayList<>();
+		this.examenes = new ArrayList<>();
+	}
+
+	public List<Examen> getExamenes() {
+		return examenes;
+	}
+
+	public void setExamenes(List<Examen> examenes) {
+		this.examenes = examenes;
 	}
 
 	public List<Student> getStudents() {
@@ -60,6 +73,14 @@ public class Curso {
 	public void removeStudent(Student student) {
 		this.Students.remove(student); //necesitamos inicializar la lista de alumnos porque esta en nulo
 	}//eliminamos alumno al curso
+	
+	public void addExamenes(Examen examen) {
+		this.examenes.add(examen);
+	}
+	
+	public void removeExamen(Examen examen) {
+		this.examenes.remove(examen); 
+	}
 
 	@PrePersist
 	public void prePersist() {

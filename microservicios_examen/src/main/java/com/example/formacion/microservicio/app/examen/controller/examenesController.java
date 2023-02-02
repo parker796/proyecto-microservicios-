@@ -2,17 +2,18 @@ package com.example.formacion.microservicio.app.examen.controller;
 
 import java.util.Optional;
 
+
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.formacion.microservicio.app.examen.service.examenService;
-import com.example.formacion.microservicio.app.examen.models.Examen;
-
+//import com.example.formacion.microservicio.app.examen.models.Examen;
+import com.example.formacion.microservicio.examenes.models.Examen;
 import controllers.CommontControllerGeneric;
 
 @RestController
@@ -52,8 +53,16 @@ public class examenesController extends CommontControllerGeneric<Examen, examenS
 		examenDb.setPreguntas(examen.getPreguntas());
 		return ResponseEntity.status(HttpStatus.CREATED).body(sServiceGeneric.save(examenDb));
 		
-		
-		
+	}
+	
+	@GetMapping("/filtar/{buscar}")
+	public ResponseEntity<?> filtrarIdAlumnoPorCurso(@PathVariable String buscar){
+		return ResponseEntity.ok(sServiceGeneric.findByNombre(buscar));
+	}
+	
+	@GetMapping("/asignaturas")
+	public ResponseEntity<?> filtrarAsignaturas(){
+		return ResponseEntity.ok(sServiceGeneric.findAllAsignaturas());
 	}
 
 }

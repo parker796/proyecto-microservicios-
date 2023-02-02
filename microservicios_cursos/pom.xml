@@ -28,6 +28,11 @@
 		<artifactId>common_students</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.example.formacion.microservicio.examenes</groupId>
+			<artifactId>common_examenes</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		
 		<dependency>
 		<groupId>com.example.formacion.microservicio.app.commons</groupId>

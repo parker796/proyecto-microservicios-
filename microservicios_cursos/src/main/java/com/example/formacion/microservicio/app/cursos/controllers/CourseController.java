@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.formacion.microservicio.app.cursos.entity.Curso;
 import com.example.formacion.microservicio.app.cursos.services.CourseService;
 import com.example.formacion.microservicio.common.students.models.entity.Student;
+import com.example.formacion.microservicio.examenes.models.Examen;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,6 +57,34 @@ public class CourseController extends CommontControllerGeneric<Curso, CourseServ
 		Curso curso = sServiceGeneric.findCursoByAlumnoId(id);
 		return ResponseEntity.ok(curso);
 	}
+	
+	
+		@PutMapping("/{id}/asignar-examenes") //id del curso y asignacion a los examenes muchos a muchos
+		public ResponseEntity<?> asignarExamenes(@PathVariable Long id, @RequestBody List<Examen> examenes){
+			Optional<Curso> o = this.sServiceGeneric.findById(id);
+			if(o.isEmpty()) { //hay como un error con o.isPresent mejor como isEmpty()
+				return ResponseEntity.notFound().build(); //404
+			}
+			Curso courseDb = o.get();
+			examenes.forEach(a -> {
+				courseDb.addExamenes(a); //por cada curso encontrado agregamos un alumno a la lista donde esta la relacion para agregar
+			});
+			
+			return ResponseEntity.status(HttpStatus.CREATED).body(this.sServiceGeneric.save(courseDb));
+		}
+		//eliminamos un alumno relacionado al curso
+		@PutMapping("/{id}/eliminar-examen")
+		public ResponseEntity<?> eliminarExamen(@PathVariable Long id, @RequestBody Examen examen){
+			Optional<Curso> o = this.sServiceGeneric.findById(id);
+			if(o.isEmpty()) {
+				return ResponseEntity.notFound().build(); //404
+			}
+			Curso courseDb = o.get();
+			courseDb.removeExamen(examen); //eliminamos alumno uno por uno mas personalizado
+			
+			return ResponseEntity.status(HttpStatus.CREATED).body(this.sServiceGeneric.save(courseDb));
+		}
+		
 	
 	
 
