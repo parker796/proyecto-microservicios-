@@ -6,9 +6,13 @@ import java.util.Date;
 
 
 
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /*import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,8 +44,21 @@ public class Student {
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
+    @Lob //nos permite esa anotacion guardar un blob objetos binarios largos
+    @JsonIgnore
+    private byte[] foto; //guardamos una foto en bd pero puede ser un pdf, word, excel etc
 
-    @PrePersist
+    public byte[] getFoto() {
+		return foto;
+	}
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+	//metodo que utilizaremos en angular que es un id unico cada objeto genera uno
+	public Integer getHasCode() {
+		return (this.foto != null) ? this.foto.hashCode() : null;
+	}
+	@PrePersist
     public void prePersist(){
         this.createAt = new Date();
     }
