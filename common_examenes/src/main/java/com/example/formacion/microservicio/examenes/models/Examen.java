@@ -25,6 +25,9 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 
 @Entity
 @Table(name="examenes")
@@ -33,6 +36,7 @@ public class Examen {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // llave primaria
 	private Long id;
 	@Column(name = "nombre", nullable = false, length = 30)
+	@NotEmpty
 	private String nombre;
 	@Column(name = "create_at")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -48,6 +52,7 @@ public class Examen {
 	private List<Pregunta> preguntas;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@NotNull
 	private Asignatura asignatura; //muchos examenes estan asociados a una asignatura
 	
 	

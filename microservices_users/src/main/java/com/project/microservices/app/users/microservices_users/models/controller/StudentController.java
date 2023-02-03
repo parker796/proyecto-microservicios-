@@ -11,9 +11,14 @@ import controllers.CommontControllerGeneric;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 @RestController
 public class StudentController extends CommontControllerGeneric<Student, StudentService>{
@@ -50,8 +55,11 @@ public class StudentController extends CommontControllerGeneric<Student, Student
         return ResponseEntity.status(HttpStatus.CREATED).body(studentDb); //201
     }
     */
-    @PutMapping("/{id}")
-    public ResponseEntity<?> edit(@RequestBody Student student, @PathVariable Long id){
+    @PutMapping("/{id}") //siempre tiene que ir bindingresult despues de entity a validar
+    public ResponseEntity<?> edit(@Valid @RequestBody Student student, BindingResult result, @PathVariable Long id){
+    	if(result.hasErrors()) {
+    		return this.validar(result);
+    	}
        // Optional<Student> o = studentservice.findById(id);
     	Optional<Student> o = sServiceGeneric.findById(id);
         if(o.isEmpty()){
@@ -72,6 +80,14 @@ public class StudentController extends CommontControllerGeneric<Student, Student
     @GetMapping("/filtrar/{buscar}")//igual el id entre corchetes debe considir con el argumento {}
     public ResponseEntity<?> filtrarNameOrlastname(@PathVariable String buscar){
     	return ResponseEntity.ok(sServiceGeneric.findByNombreAndApellido(buscar));
+    }
+    
+    protected ResponseEntity<?> validar(BindingResult result){
+    	Map<String, Object> errores = new HashMap<>();
+    	result.getFieldErrors().forEach(err -> {
+    		errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
+    	});
+    	return ResponseEntity.badRequest().body(errores);
     }
 
 

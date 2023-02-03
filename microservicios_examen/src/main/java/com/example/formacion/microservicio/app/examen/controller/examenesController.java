@@ -1,11 +1,14 @@
 package com.example.formacion.microservicio.app.examen.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
-
+import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,8 +27,11 @@ public class examenesController extends CommontControllerGeneric<Examen, examenS
 	}
 
 	//actualizamos las preguntas con sus preguntas
-	@PutMapping("/{id}")
-	public ResponseEntity<?> editar(@RequestBody Examen examen, @PathVariable Long id){
+	@PutMapping("/{id}")//siempre tiene que ir binding result despues del entity validar
+	public ResponseEntity<?> editar(@Valid @RequestBody Examen examen, BindingResult result, @PathVariable Long id){
+		if(result.hasErrors()) {
+    		return this.validar(result);
+    	}
 		Optional<Examen> o = sServiceGeneric.findById(id);
 		if(o.isEmpty()) {
 			return ResponseEntity.notFound().build(); //404
@@ -65,4 +71,11 @@ public class examenesController extends CommontControllerGeneric<Examen, examenS
 		return ResponseEntity.ok(sServiceGeneric.findAllAsignaturas());
 	}
 
+	  protected ResponseEntity<?> validar(BindingResult result){
+	    	Map<String, Object> errores = new HashMap<>();
+	    	result.getFieldErrors().forEach(err -> {
+	    		errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
+	    	});
+	    	return ResponseEntity.badRequest().body(errores);
+	    }
 }

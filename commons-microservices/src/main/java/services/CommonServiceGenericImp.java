@@ -3,11 +3,15 @@ package services;
 import java.util.Optional;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+//import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
-//buenas practicas para nuestros microservicios solo necesitamos heredarlas
-public class CommonServiceGenericImp<E, R extends CrudRepository<E,Long>> implements CommonServiceGeneric<E>{
+//buenas practicas para nuestros microservicios solo necesitamos heredarlas en lugar de crud pagin para paginacion
+public class CommonServiceGenericImp<E, R extends PagingAndSortingRepository<E,Long>> implements CommonServiceGeneric<E>{
     //private R repository; //en lugar de private protected
 	protected R repository; //para que se reutilize en las clases hijas
     @Autowired //la cereza del pastel DI por constructor mas seguridad
@@ -38,4 +42,10 @@ public class CommonServiceGenericImp<E, R extends CrudRepository<E,Long>> implem
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<E> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
+	}
 }

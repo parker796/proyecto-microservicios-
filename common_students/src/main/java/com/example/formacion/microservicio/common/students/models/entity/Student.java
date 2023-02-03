@@ -7,6 +7,8 @@ import java.util.Date;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 /*import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,11 +27,15 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //esta es la llave primaria para mariadb o mysql
     private Long id;
-    @Column(name = "name", nullable = false, length = 50)
+    // @Column(name = "name", nullable = false, length = 50)
+    @NotEmpty
     private String name;
-    @Column(name = "last_name", nullable = false, length = 50)
+    @Column(name = "last_name", length = 50)
+    @NotEmpty
     private String Lastname;
-    @Column(name = "email", nullable = false, length = 50)
+    // @Column(name = "email", nullable = false, length = 50)
+    @NotEmpty
+    @Email
     private String email;
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)

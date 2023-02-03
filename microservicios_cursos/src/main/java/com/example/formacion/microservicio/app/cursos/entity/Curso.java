@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 import com.example.formacion.microservicio.common.students.models.entity.Student;
 import com.example.formacion.microservicio.examenes.models.Examen;
@@ -32,6 +33,7 @@ public class Curso {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // llave primaria
 	private Long id;
 	@Column(name = "name", nullable = false, length = 50)
+	@NotEmpty
 	private String name;
 	@Column(name = "create_at")
 	@Temporal(TemporalType.TIMESTAMP)
