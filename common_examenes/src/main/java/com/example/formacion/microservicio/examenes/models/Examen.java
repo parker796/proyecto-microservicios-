@@ -22,6 +22,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -55,6 +56,8 @@ public class Examen {
 	@NotNull
 	private Asignatura asignatura; //muchos examenes estan asociados a una asignatura
 	
+	@Transient
+	private boolean respondido;
 	
 	public Asignatura getAsignatura() {
 		return asignatura;
@@ -128,6 +131,12 @@ public class Examen {
 		Examen exa = (Examen) obj;
 		
 		return this.id != null && this.id.equals(exa.getId()); //mismo objeto con el id
+	}
+	public boolean isRespondido() {
+		return respondido;
+	}
+	public void setRespondido(boolean respondido) {
+		this.respondido = respondido;
 	}
 	
 }

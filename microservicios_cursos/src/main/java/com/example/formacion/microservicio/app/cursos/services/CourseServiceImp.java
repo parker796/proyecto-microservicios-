@@ -2,9 +2,11 @@ package com.example.formacion.microservicio.app.cursos.services;
 
 import services.CommonServiceGenericImp;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import com.example.formacion.microservicio.app.cursos.clients.respuestaFeignClients;
 import com.example.formacion.microservicio.app.cursos.entity.Curso;
 import com.example.formacion.microservicio.app.cursos.repository.CourseRepository;
 
@@ -22,6 +24,16 @@ public class CourseServiceImp extends CommonServiceGenericImp<Curso, CourseRepos
 	public Curso findCursoByAlumnoId(Long id) {
 		return repository.findCursoByAlumnoId(id);
 	}
+	
+	@Autowired
+	private respuestaFeignClients clienteFeignHttp;
+
+	@Override
+	public Iterable<Long> filtrarExamenesByIDSRespuestaByAlumno(Long alumnoId) {
+		return clienteFeignHttp.filtrarExamenesByIDSRespuestaByAlumno(alumnoId);
+	}
+	
+	
 
 	
    /*
